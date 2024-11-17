@@ -1,0 +1,636 @@
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+    color: #333;
+}
+
+h2 {
+    margin: 0;
+    margin-bottom: 16px;
+}
+
+h3 {
+    margin: 0;
+    margin-bottom: 16px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: white;
+    padding: 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.status-bar {
+    display: flex;
+    margin: 8px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    background: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.status-bar h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.response-area {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 16px;
+    margin: 0;
+    background: white;
+    border: none;
+    border-radius: 0;
+}
+
+.input-section {
+    padding: 16px;
+    border: 1px solid #ddd;
+    background: #f8f9fa;
+    margin: 8px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.server-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.status-online {
+    background-color: #22c55e;
+    box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+}
+
+.status-offline {
+    background-color: #ef4444;
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+}
+
+.input-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 0px;
+    width: 100%;
+}
+
+.prompt-container {
+    position: relative;
+    display: flex;
+    flex-grow: 1;
+}
+
+textarea {
+    width: 100%;
+    padding: 16px 48px 16px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    resize: none;
+    font-size: 16px;
+    line-height: 1.4;
+    min-height: 54px;
+    max-height: 200px;
+    box-sizing: border-box;
+}
+
+#generate {
+    width: 54px;
+    height: 54px;
+    border-radius: 8px;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+#generate:hover {
+    background: #0056b3;
+}
+
+#generate:disabled {
+    background: #cccccc;
+}
+
+.controls-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    padding: 0;
+    margin-bottom: 8px;
+}
+
+.model-select-container {
+    flex: 1;
+}
+
+.temperature-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.slider-container {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+input[type="range"] {
+    flex-grow: 1;
+}
+
+.temperature-value {
+    min-width: 48px;
+    text-align: right;
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+.temperature-value:hover {
+    background-color: #f0f0f0;
+}
+
+[data-theme="dark"] .temperature-value:hover {
+    background-color: #333;
+}
+
+#response {
+    margin-top: 0;
+    padding: 16px;
+    background: white;
+    border-radius: 8px;
+    border: none;
+}
+
+.status {
+    color: #666;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.send-icon {
+    width: 24px;
+    height: 24px;
+    fill: white;
+}
+
+.message {
+    margin-bottom: 16px;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.user-message {
+    background: #f0f7ff;
+    border: 1px solid #cce5ff;
+}
+
+.system-message {
+    color: #666;
+    font-style: italic;
+    font-size: 14px;
+    margin: 8px 0;
+}
+
+.ai-message {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    margin-bottom: 20px;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+/* Dark mode styles */
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    margin-right: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+}
+
+.theme-icon {
+    width: 24px;
+    height: 24px;
+    fill: #666;
+}
+
+.theme-toggle:hover {
+    background: #eee;
+}
+
+/* Dark mode specific styles */
+[data-theme="dark"] {
+    background: #1a1a1a;
+}
+
+[data-theme="dark"] .container {
+    background: #1e1e1e;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+[data-theme="dark"] .status-bar,
+[data-theme="dark"] .input-section {
+    background: #2a2a2a;
+    border-color: #333;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+[data-theme="dark"] .response-area {
+    background: #1e1e1e;
+    color: #fff;
+}
+
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+    background: #2a2a2a;
+    border-color: #404040;
+    color: #fff;
+}
+
+[data-theme="dark"] textarea::placeholder {
+    color: #888;
+}
+
+[data-theme="dark"] .user-message {
+    background: #313d4f;
+    border-color: #404b5c;
+    color: #fff;
+}
+
+[data-theme="dark"] .ai-message {
+    background: #1e1e1e;
+    border-color: #333;
+    color: #fff;
+}
+
+[data-theme="dark"] .system-message {
+    color: #888;
+}
+
+[data-theme="dark"] .theme-icon {
+    fill: #fff;
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+    background: #333;
+}
+
+[data-theme="dark"] h1 {
+    color: #fff;
+}
+
+[data-theme="dark"] #serverStatusText {
+    color: #fff;
+}
+
+[data-theme="dark"] .temperature-container {
+    color: #fff;
+}
+
+[data-theme="dark"] .temperature-value {
+    color: #fff;
+}
+
+/* Icon visibility */
+.sun-icon {
+    display: none;
+}
+
+[data-theme="dark"] .moon-icon {
+    display: none;
+}
+
+[data-theme="dark"] .sun-icon {
+    display: block;
+}
+
+[data-theme="dark"] #response {
+    background: #1e1e1e;
+    color: #fff;
+}
+
+[data-theme="dark"] body {
+    background: #121212;
+    color: #fff;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-icon {
+    width: 24px;
+    height: 24px;
+    fill: #666;
+}
+
+[data-theme="dark"] .settings-icon {
+    fill: #fff;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    background: white;
+    margin: 50px auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 8px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+[data-theme="dark"] .modal-content {
+    background: #1e1e1e;
+    color: #fff;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+
+[data-theme="dark"] .close-button {
+    color: #fff;
+}
+
+.pull-section {
+    margin-bottom: 32px;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+[data-theme="dark"] .pull-section {
+    background: #2a2a2a;
+    border-color: #333;
+}
+
+.pull-input {
+    display: flex;
+    gap: 8px;
+}
+
+.model-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.model-card {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+[data-theme="dark"] .model-card {
+    background: #2a2a2a;
+    border-color: #333;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background: #eee;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #007bff;
+    transition: width 0.3s ease;
+}
+
+.model-meta {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+[data-theme="dark"] .model-meta {
+    color: #aaa;
+}
+
+.tag {
+    display: inline-block;
+    padding: 2px 6px;
+    background: #e9ecef;
+    border-radius: 4px;
+    font-size: 0.8em;
+    margin-right: 5px;
+}
+
+[data-theme="dark"] .tag {
+    background: #404040;
+    color: #fff;
+}
+
+.btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-primary {
+    background: #007bff;
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.image-upload-button {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.image-icon {
+    width: 24px;
+    height: 24px;
+    fill: #666;
+}
+
+[data-theme="dark"] .image-icon {
+    fill: #fff;
+}
+
+.image-preview {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.preview-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.remove-image {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+/* Update icon styles */
+.material-icons {
+    font-size: 24px;
+}
+
+.icon-button .material-icons {
+    color: #666;
+}
+
+.theme-icon {
+    color: #666;
+}
+
+[data-theme="dark"] .icon-button .material-icons,
+[data-theme="dark"] .theme-icon {
+    color: #fff;
+}
+
+/* Remove old SVG-specific styles */
+.settings-icon,
+.send-icon,
+.image-icon,
+.sun-icon,
+.moon-icon {
+    display: none;
+}
+
+#generate .material-icons {
+    color: white;
+}
+
+.image-upload-button .material-icons {
+    color: #666;
+}
+
+[data-theme="dark"] .image-upload-button .material-icons {
+    color: #fff;
+} 
