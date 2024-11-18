@@ -22,4 +22,4 @@ The most easy and lightweight interface to run your local LLM, for everyone.
 2. Quit the app (check on your status bar). 
 3. Open terminal and enter `ollama serve`. Keep that terminal window open.
 4. Check http://localhost:11434/, it should say "Ollama is running".
-5. Download the repo and open `1-chat/index.html`
+5. Download the repo and open `web/chat/index.html`
