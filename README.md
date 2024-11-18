@@ -1,5 +1,5 @@
 # coreOllama
-The most easy and lightweight interface to run your local LLM, for everyone. 
+The most easy-to-use, simple and lightweight interface to run your local LLM, for everyone. 
 
 ## Features
 - Generate
