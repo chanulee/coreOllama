@@ -13,7 +13,7 @@ The most easy and lightweight interface to run your local LLM, for everyone.
 - Dark mode
 
 ## Versions
-- 0-basic: Proof of concept of ollama-gui
+- 0-basic: Basic proof of concept of ollama-gui.
 - chat: main project
 - More intense version with persona management is available in [persona-studio](https://github.com/chanulee/persona-studio)
 
