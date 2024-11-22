@@ -12,6 +12,7 @@ The most easy-to-use, simple and lightweight interface to run your local LLM, fo
 - Local server status
 - Dark mode
 - Include Context: Full or selection
+- Clear chat history
 
 ## Versions
 - 0-basic: Basic proof of concept of ollama-gui
