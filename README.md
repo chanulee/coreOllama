@@ -1,6 +1,8 @@
 # coreOllama
 The most easy-to-use, simple and lightweight interface to run your local LLM, for everyone. 
 
+![](https://i.ibb.co/sjgbqpJ/Ollama-Web-Interface.jpg)
+
 ## Features
 - Generate
   - model selection
