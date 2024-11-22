@@ -122,6 +122,7 @@ async function fetchModels() {
                     </div>
                     <div class="model-actions">
                         <button class="btn btn-danger" onclick="deleteModel('${model.name}')">
+                            <span class="material-icons">delete</span>
                             Delete
                         </button>
                     </div>
@@ -413,7 +414,7 @@ function displayImagePreview(imageData) {
 
     const removeButton = document.createElement('button');
     removeButton.className = 'remove-image';
-    removeButton.innerHTML = '×';
+    removeButton.innerHTML = '<span class="material-icons">close</span>';
     removeButton.onclick = () => {
         selectedImage = null;
         previewArea.innerHTML = '';
