@@ -11,11 +11,14 @@ The most easy-to-use, simple and lightweight interface to run your local LLM, fo
   - Pull new model
 - Local server status
 - Dark mode
+- Include Context: Full or selection
 
 ## Versions
-- 0-basic: Basic proof of concept of ollama-gui.
+- 0-basic: Basic proof of concept of ollama-gui
 - chat: main project
-- More intense version with persona management is available in [persona-studio](https://github.com/chanulee/persona-studio)
+#### Advanced Apps
+- [persona-studio](https://github.com/chanulee/persona-studio): Build and manage your own personas
+- [everychat](https://github.com/chanulee/everychat): your AI chat multiverse
 
 ## Beginner's guide
 1. Ollama setup - install ollama app for mac (You can download model or just proceed and use gui)
