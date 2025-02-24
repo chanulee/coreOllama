@@ -367,8 +367,94 @@ async function deleteModel(modelName) {
 }
 
 async function pullModel() {
-    // Copy the pullModel function from settings.html
-    // It's the same implementation as shown in the settings file
+    const modelNameInput = document.getElementById('modelName');
+    const modelName = modelNameInput.value.trim();
+    
+    if (!modelName) {
+        alert('Please enter a model name');
+        return;
+    }
+    
+    // Check if server is online
+    if (!serverOnline) {
+        alert('Server is offline. Cannot pull models.');
+        return;
+    }
+    
+    const pullButton = document.getElementById('pullButton');
+    const pullProgress = document.getElementById('pullProgress');
+    const progressFill = document.getElementById('progressFill');
+    const pullStatus = document.getElementById('pullStatus');
+    
+    pullButton.disabled = true;
+    pullProgress.style.display = 'block';
+    progressFill.style.width = '0%';
+    pullStatus.textContent = `Starting download: ${modelName}`;
+    
+    try {
+        const response = await fetch('http://localhost:11434/api/pull', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name: modelName })
+        });
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const reader = response.body.getReader();
+        
+        while (true) {
+            const { value, done } = await reader.read();
+            if (done) break;
+            
+            const chunk = new TextDecoder().decode(value);
+            const lines = chunk.split('\n');
+            
+            for (const line of lines) {
+                if (line.trim()) {
+                    try {
+                        const data = JSON.parse(line);
+                        
+                        if (data.status) {
+                            pullStatus.textContent = data.status;
+                        }
+                        
+                        if (data.completed) {
+                            // Update progress bar if percentage info is available
+                            if (data.total > 0) {
+                                const percentage = Math.min(100, Math.round((data.completed / data.total) * 100));
+                                progressFill.style.width = `${percentage}%`;
+                                pullStatus.textContent = `Downloading: ${percentage}% - ${data.status}`;
+                            }
+                        }
+                    } catch (e) {
+                        console.error('Error parsing JSON:', e);
+                    }
+                }
+            }
+        }
+        
+        // Pull completed successfully
+        progressFill.style.width = '100%';
+        pullStatus.textContent = `Successfully pulled ${modelName}`;
+        
+        // Refresh the model list
+        setTimeout(() => {
+            fetchModels();
+            pullProgress.style.display = 'none';
+            modelNameInput.value = '';
+        }, 2000);
+        
+    } catch (error) {
+        console.error('Error pulling model:', error);
+        pullStatus.textContent = `Error: ${error.message}`;
+        progressFill.style.width = '0%';
+    } finally {
+        pullButton.disabled = false;
+    }
 }
 
 function setupImageUpload() {
