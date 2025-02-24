@@ -26,6 +26,10 @@ The most easy-to-use, simple and lightweight interface to run your local LLM, fo
 ## Beginner's guide
 1. Ollama setup - install ollama app for mac (You can download model or just proceed and use gui)
 2. Quit the app (check on your status bar). 
-3. Open terminal and enter `ollama serve`. Keep that terminal window open.
+3. Open terminal and enter `ollama serve`. Keep that terminal window open. 
 4. Check http://localhost:11434/, it should say "Ollama is running".
 5. Download the repo and open `web/chat/index.html`
+
+## After your first time
+You can use this simple shortcut that 1. quits running ollama and 2. runs the ollama server
+https://www.icloud.com/shortcuts/effd307fdf9b4edba55f16337d1419f2
