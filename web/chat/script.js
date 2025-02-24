@@ -3,6 +3,7 @@ let selectedImage = null;
 let useFullContext = false;
 let selectedContextMessages = [];
 let conversationHistory = [];
+let serverCheckInterval = 5000; // Default to checking every 5 seconds
 
 // Auto-resize textarea
 const textarea = document.getElementById('prompt');
@@ -62,6 +63,17 @@ async function checkServerStatus() {
             statusText.textContent = 'Server Online';
             generateButton.disabled = false;
             serverOnline = true;
+            
+            // If models are loaded and server is online, check less frequently
+            const modelSelect = document.getElementById('modelList');
+            if (modelSelect.options.length > 0 && modelSelect.value !== "loading" && 
+                modelSelect.value !== "Server offline" && serverCheckInterval !== 15000) {
+                clearInterval(serverStatusChecker);
+                serverCheckInterval = 15000; // Check every 15 seconds when idle
+                serverStatusChecker = setInterval(checkServerStatus, serverCheckInterval);
+                console.log("Server stable, reducing status check frequency");
+            }
+            
             return true;
         }
     } catch (error) {
@@ -72,8 +84,54 @@ async function checkServerStatus() {
     statusText.textContent = 'Server Offline';
     generateButton.disabled = true;
     serverOnline = false;
+    
+    // If server goes offline, check more frequently
+    if (serverCheckInterval !== 5000) {
+        clearInterval(serverStatusChecker);
+        serverCheckInterval = 5000; // Back to checking every 5 seconds
+        serverStatusChecker = setInterval(checkServerStatus, serverCheckInterval);
+        console.log("Server offline, increasing status check frequency");
+    }
+    
     return false;
 }
+
+// Initialize the interval checker with a variable we can reference later
+let serverStatusChecker;
+
+// Add immediate checking on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Perform an immediate first check instead of waiting for interval
+    checkServerStatus().then(isOnline => {
+        if (isOnline) {
+            // Immediately fetch models if server is online
+            fetchModels();
+        }
+    });
+    
+    // Then set up the interval for subsequent checks
+    serverStatusChecker = setInterval(checkServerStatus, serverCheckInterval);
+    
+    // Other existing initialization code
+    const fullContextButton = document.getElementById('fullContextButton');
+    fullContextButton.addEventListener('click', function() {
+        useFullContext = !useFullContext;
+        this.classList.toggle('active', useFullContext);
+        if (useFullContext) {
+            selectedContextMessages = [];
+            document.getElementById('selectContextButton').classList.remove('active');
+        }
+    });
+
+    const selectContextButton = document.getElementById('selectContextButton');
+    selectContextButton.addEventListener('click', function() {
+        openContextSelectionModal();
+        useFullContext = false;
+        fullContextButton.classList.remove('active');
+    });
+
+    document.getElementById('clearConversationButton').addEventListener('click', clearConversation);
+});
 
 async function fetchModels() {
     const isOnline = await checkServerStatus();
@@ -278,9 +336,6 @@ textarea.addEventListener('keydown', function(e) {
         generateResponse();
     }
 });
-
-setInterval(checkServerStatus, 5000);
-fetchModels();
 
 // Add this near the top of the file
 function initTheme() {
@@ -623,26 +678,4 @@ function clearConversation() {
         document.getElementById('fullContextButton').classList.remove('active');
         document.getElementById('selectContextButton').classList.remove('active');
     }
-}
-
-// Add event listeners for context buttons
-document.addEventListener('DOMContentLoaded', function() {
-    const fullContextButton = document.getElementById('fullContextButton');
-    fullContextButton.addEventListener('click', function() {
-        useFullContext = !useFullContext;
-        this.classList.toggle('active', useFullContext);
-        if (useFullContext) {
-            selectedContextMessages = [];
-            document.getElementById('selectContextButton').classList.remove('active');
-        }
-    });
-
-    const selectContextButton = document.getElementById('selectContextButton');
-    selectContextButton.addEventListener('click', function() {
-        openContextSelectionModal();
-        useFullContext = false;
-        fullContextButton.classList.remove('active');
-    });
-
-    document.getElementById('clearConversationButton').addEventListener('click', clearConversation);
-}); 
+} 
