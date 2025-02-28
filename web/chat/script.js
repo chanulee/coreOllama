@@ -323,10 +323,10 @@ async function generateResponse() {
         button.disabled = false;
         selectedImage = null;
         document.getElementById('imagePreview').innerHTML = '';
+        
+        // After getting the AI response, store it
+        conversationHistory.push({ role: 'assistant', content: fullResponse });
     }
-
-    // After getting the AI response, store it
-    conversationHistory.push({ role: 'assistant', content: fullResponse });
 }
 
 // Enter key to submit
